@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
 import axios from "axios";
 import {server} from "../../server.js"
-import { useNavigate } from "react-router-dom";
+import {toast} from "react-toastify"
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +14,6 @@ const SignUp = () => {
   const [visible, setVisible] = useState(false);
   const [avatar, setAvatar] = useState(null);
 
-  const navigate = useNavigate();
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
@@ -32,26 +31,19 @@ const SignUp = () => {
     newForm.append("email", email);
     newForm.append("password", password);
 
-
-
-
-
     axios
       .post(`${server}/user/create-user`,newForm, config)
       .then((res) => {
-        if(res.data.success === true){
-          alert(res.message)
-        }
-        // toast.success(res.data.message);
-        // setName("");
-        // setEmail("");
-        // setPassword("");
-        // setAvatar();
+          toast.success(res.data.message);
+          setName("");
+          setEmail("");
+          setPassword("");
+          setAvatar();
       })
       .catch((error) => {
-        // toast.error(error.response.data.message);
-        console.log(error);
+        toast.error(error.response.data.message);
       });
+
   };
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">

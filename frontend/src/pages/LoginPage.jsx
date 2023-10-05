@@ -4,7 +4,6 @@ const LoginPage = () => {
   return (
     <div>
       <Login />  
-      {/* time 1:00:0 */}
     </div>
   )
 }
